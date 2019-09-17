@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>tech.mrbraz</groupId>
+		<artifactId>java8-parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath></relativePath>
+	</parent>
+
+	<groupId>dockably</groupId>
+	<artifactId>dockably-oss</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>kafka-container</module>
+		<module>kafka-container-api</module>
+	</modules>
+
+	<properties>
+		<testContainersVersion>1.12.1</testContainersVersion>
+		<maven.jar.pluginVersion>3.1.1</maven.jar.pluginVersion>
+		<image.registry>registry.hub.docker.com/dockably/${project.artifactId}</image.registry>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers</artifactId>
+				<version>${testContainersVersion}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>1.4.10</version>
+					<configuration>
+						<repository>${image.registry}</repository>
+						<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+						<tag>${project.version}</tag>
+						<verbose>true</verbose>
+						<buildArgs>
+							<APP_FILE>${project.build.finalName}.${project.packaging}</APP_FILE>
+						</buildArgs>
+					</configuration>
+					<executions>
+						<execution>
+							<id>docker-build</id>
+							<phase>install</phase>
+							<goals>
+								<goal>build</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>docker-push</id>
+							<phase>install</phase>
+							<goals>
+								<goal>push</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<scm>
+		<connection>scm:git:ssh://github.com/mrbraztech/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/mrbraztech/${project.artifactId}.git</developerConnection>
+		<url>https://github.com/mrbraztech/${project.artifactId}</url>
+		<tag>v${project.version}</tag>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>mrbraztech-oss</id>
+			<url>https://dl.cloudsmith.io/public/mrbraztech/oss/maven/</url>
+		</repository>
+	</repositories>
+</project>
