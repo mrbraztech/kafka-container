@@ -1,4 +1,4 @@
-package tech.mrbraz.kafka.interfaces;
+package dockably.kafka.interfaces;
 
 import org.testcontainers.containers.GenericContainer;
 

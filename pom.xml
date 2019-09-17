@@ -23,6 +23,8 @@
 
 	<properties>
 		<testContainersVersion>1.12.1</testContainersVersion>
+		<slf4jVersion>1.7.25</slf4jVersion>
+    <log4jVersion>1.2.17</log4jVersion>
 		<maven.jar.pluginVersion>3.1.1</maven.jar.pluginVersion>
 		<image.registry>registry.hub.docker.com/dockably/${project.artifactId}</image.registry>
 	</properties>
@@ -33,6 +35,21 @@
 				<groupId>org.testcontainers</groupId>
 				<artifactId>testcontainers</artifactId>
 				<version>${testContainersVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4jVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4jVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4jVersion}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
