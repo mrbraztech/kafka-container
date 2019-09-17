@@ -2,9 +2,6 @@ version: 2
 executorType: machine
 jobs:
   build:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
     working_directory: ~/repo
 
     environment:
