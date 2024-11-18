@@ -16,7 +16,7 @@
 
 	<properties>
 		<kafkaVersion>${project.version}</kafkaVersion>
-		<debeziumVersion>0.9.5.Final</debeziumVersion>
+		<debeziumVersion>2.3.0.Final</debeziumVersion>
 	</properties>
 
 	<dependencies>
